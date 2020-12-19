@@ -2,28 +2,6 @@
 #include <stdio.h>
 #include <time.h>
 
-void menu_principal()
-{
-    system("cls");      // limpar o terminal
-    system("color 02"); //Para colorir o terminal
-    printf("<========= Seja Bem Vindo =========>\n");
-    printf(" Digite o numero da opcao escolhida\n\n");
-    printf(" 1 - Mini Game pedra papel tesoura \n");
-    printf(" 2 - Armazene e pesquise nomes\n");
-    printf(" 3 - Finalizar Programa\n\n");
-}
-
-void menu_armazenar_pesquisar(){
-    system("cls");      // limpar o terminal
-    system("color 05"); //Para colorir o terminal
-    printf("<========= Seja Bem Vindo =========>\n");
-    printf(" Digite o numero da opcao escolhida\n\n");
-    printf(" 1 - Pesquisar Pessoa\n");
-    printf(" 2 - Armazenar Pessoa\n");
-    printf(" 3 - Ver lista Completa\n");
-    printf(" 4 - Finalizar Programa\n\n");
-}
-
 void menu_pre_game()
 {
     system("cls");      // limpar o terminal
@@ -69,19 +47,20 @@ void menu_game()
     printf("    3 - Tesoura\n\n");
 }
 
-typedef struct StructPessoas
+typedef  struct Snomes 
 {
     char nome[20];
-    int idade;
-    int peso;
-
-}Pessoas;
-
-Pessoas pessoa[2];
+} Tnomes;
 
 void Jogo_predra_papel_tesoura()
 {
-    int opcao, opcaoComputador, contadorVitorias=0, contadorDerrota=0, contadorEmpate=0;
+    int opcao, opcaoComputador, contadorVitorias = 0, contadorDerrota = 0, contadorEmpate = 0;
+    Tnomes Nomes[3];
+
+    strcat("Pedra", Nomes[1].nome);
+    strcat("Papel", Nomes[1].nome);
+    strcat("Tesoura", Nomes[1].nome);
+
     while (1)
     {
         //Menu
@@ -90,30 +69,21 @@ void Jogo_predra_papel_tesoura()
         opcaoComputador = (rand() % 3) + 1;
         printf("Digite a opcao escolhida: ");
         scanf("%d", &opcao);
+        
 
         //Verificar se a entrada está correta
         while (opcao != 1 && opcao != 2 && opcao != 3)
         {
             menu_game();
-            system("color 04");//Colorir para Vermelho
+            system("color 04"); //Colorir para Vermelho
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
             scanf("%d", &opcao);
         }
-        system("color 01");//Colorir para o padrão
+        system("color 01"); //Colorir para o padrão
 
         // Para escrever a opção do pc
-        if (opcaoComputador == 1)
-        {
-            printf("\nO pc escolheu Pedra\n");
-        }
-        if (opcaoComputador == 2)
-        {
-            printf("\nO pc escolheu Papel\n");
-        }
-        if (opcaoComputador == 3)
-        {
-            printf("\nO pc escolheu Tesoura\n");
-        }
+        
+        printf("\nO pc escolheu %s\n", Nomes[opcaoComputador]);
 
         //Para saber se empatou ganhou ou perdeu
         if ((opcao == 1 && opcaoComputador == 2) || (opcao == 3 && opcaoComputador == 1) || (opcao == 2 && opcaoComputador == 3)) // se perdeu
@@ -163,6 +133,35 @@ void Jogo_predra_papel_tesoura()
             system("pause");
             break;
         }
-        
+    }
+}
+
+void Jogo()
+{
+    int opcao;
+    while (1)
+    {
+        menu_pre_game();
+        printf("--> ");
+        scanf("%d", &opcao);
+        while (opcao != 1 && opcao != 2 && opcao != 3)
+        {
+            menu_pre_game();
+            system("color 04");
+            printf("Opcao INVALIDA. Digite uma opcao existente: ");
+            scanf("%d", &opcao);
+        }
+        if (opcao == 1)
+        {
+            tutorial_game();
+        }
+        if (opcao == 2)
+        {
+            Jogo_predra_papel_tesoura();
+        }
+        if (opcao == 3)
+        {
+            break;
+        }
     }
 }

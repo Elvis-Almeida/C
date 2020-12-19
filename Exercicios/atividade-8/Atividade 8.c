@@ -1,42 +1,20 @@
 #include <stdio.h>
-#include "MinhaBiblioteca.h"
+#include "jogoPPT.h"
+#include "ArmzenarPequisar.h"
+
 //mini game pedra papel tesoura
 
 //pesquisa de dados e armazenamento de dados
 
-//Jogo
-
-void armazenar_pesquisar(){
-    menu_armazenar_pesquisar();
-}
-void Jogo()
+void menu_principal()
 {
-    int opcao;
-    while (1)
-    {
-        menu_pre_game();
-        printf("--> ");
-        scanf("%d", &opcao);
-        while (opcao != 1 && opcao != 2 && opcao != 3)
-        {
-            menu_pre_game();
-            system("color 04");
-            printf("Opcao INVALIDA. Digite uma opcao existente: ");
-            scanf("%d", &opcao);
-        }
-        if (opcao == 1)
-        {
-            tutorial_game();
-        }
-        if (opcao == 2)
-        {
-            Jogo_predra_papel_tesoura();
-        }
-        if (opcao == 3)
-        {
-            break;
-        }
-    }
+    system("cls");      // limpar o terminal
+    system("color 02"); //Para colorir o terminal
+    printf("<========= Seja Bem Vindo =========>\n");
+    printf(" Digite o numero da opcao escolhida\n\n");
+    printf(" 1 - Mini Game pedra papel tesoura \n");
+    printf(" 2 - Armazene e pesquise nomes\n");
+    printf(" 3 - Finalizar Programa\n\n");
 }
 
 int main()
@@ -67,7 +45,8 @@ int main()
         //Armazenar e pesquisar nomes
         if (opcao == 2)
         {
-            armazenar_pesquisar();
+            FILE *Nomes;
+            ArmazenarPesquisar(Nomes);
         }
         
         //Finalizar
