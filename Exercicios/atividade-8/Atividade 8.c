@@ -9,7 +9,7 @@
 void menu_principal()
 {
     system("cls");      // limpar o terminal
-    system("color 02"); //Para colorir o terminal
+    system("color 02");      //Para colorir o terminal
     printf("<========= Seja Bem Vindo =========>\n");
     printf(" Digite o numero da opcao escolhida\n\n");
     printf(" 1 - Mini Game pedra papel tesoura \n");
@@ -27,6 +27,8 @@ int main()
         menu_principal();
         printf(" Digite a opcao escolhida: ");
         scanf("%d", &opcao);
+
+        //verificar se a entrada foi correta
         while (opcao != 1 && opcao != 2 && opcao != 3)
         {
             menu_principal();
@@ -52,7 +54,7 @@ int main()
         //Finalizar
         if (opcao == 3)
         {
-            printf("<====== Programa finalizado ======>");
+            printf("\n<====== Programa finalizado ======>\n\n");
             break;
         }
     }

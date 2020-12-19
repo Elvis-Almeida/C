@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#define _GNU_SOURCE // necessário porque getline() é extensão GNU
+#define _GNU_SOURCE
 
 void menu_armazenar_pesquisar()
 {
@@ -12,7 +12,7 @@ void menu_armazenar_pesquisar()
     printf(" 2 - Pesquisar Pessoa\n");
     printf(" 3 - Ver lista Completa\n");
     printf(" 4 - Deletar todos os Nomes\n");
-    printf(" 5 - Finalizar Programa\n\n");
+    printf(" 5 - Voltar para o Menu Principal\n\n");
 }
 
 void armazenarNomes(FILE *Nomes)
@@ -40,11 +40,14 @@ void armazenarNomes(FILE *Nomes)
         printf("\nDeseja salvar o nome: %s\n", str);
         printf(" 1-sim\n 2-nao\n\n --> ");
         scanf("%d", &opcao);
+
+        //verificar se a entrada foi correta
         while (opcao != 1 && opcao != 2)
         {
+            system("cls");
             system("color 04");
-            printf("\nDeseja salvar o nome: %s\n");
-            printf("1-sim\n 2-nao\n\n");
+            printf("\nDeseja salvar o nome: %s\n", str);
+            printf(" 1-sim\n 2-nao\n\n");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
             scanf("%d", &opcao);
         }
@@ -62,8 +65,11 @@ void armazenarNomes(FILE *Nomes)
         system("color 01");
         printf("\nDeseja Armazenar outro nome?\n 1-sim\n 2-nao\n\n --> ");
         scanf("%d", &opcao);
+
+        //verificar se a entrada foi correta
         while (opcao != 1 && opcao != 2)
         {
+            system("cls");
             printf("\nDeseja Armazenar outro nome?\n 1-sim\n 2-nao\n\n --> ");
             system("color 04");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
@@ -85,17 +91,18 @@ void PesquisarNome(FILE *Nomes)
         size_t len = 1;
         char *linha = malloc(len);
         char *pesquisa[70];
-        int i = 0, opcao, NaoAchou=0;
+        int i = 0, opcao, NaoAchou = 0;
 
         system("cls");
         Nomes = fopen("Nome das Pessoas.txt", "r");
 
         if (!Nomes)
         {
+            system("color 04");
             printf("\nO arquivo nao abriu ou nao existe\n");
             printf("Tente Armazenar algum nome primeiro\n\n");
             system("pause");
-            exit(1);
+            return 1;
         }
         fflush(stdin);
         printf("\nDigite o nome que procura: ");
@@ -103,25 +110,25 @@ void PesquisarNome(FILE *Nomes)
         system("cls");
         while (getline(&linha, &len, Nomes) > 0)
         {
-            if (strcmp(linha, pesquisa) == 0)
+            if (strcasecmp(linha, pesquisa) == 0)
             {
                 system("color 02");
                 printf("\n Seu Nome: %s foi encontrado\n\n", linha);
-                NaoAchou=0;
+                NaoAchou = 0;
                 break;
             }
             else
             {
-                NaoAchou=1;
+                NaoAchou = 1;
             }
         }
-        if (NaoAchou==1)
+        if (NaoAchou == 1)
         {
             system("color 04");
             printf("\n Seu Nome: %s Nao foi encontrado\n", pesquisa);
             printf(" Verifique se seu nome foi digitado corretamente\n\n");
         }
-        
+
         system("pause");
         free(pesquisa);
         free(linha);
@@ -131,8 +138,11 @@ void PesquisarNome(FILE *Nomes)
         system("color 01");
         printf("\nDeseja Pesquisar outro nome?\n 1-sim\n 2-nao\n\n --> ");
         scanf("%d", &opcao);
+
+        //verificar se a entrada foi correta
         while (opcao != 1 && opcao != 2)
         {
+            system("cls");
             printf("\nDeseja Pesquisar outro nome?\n 1-sim\n 2-nao\n\n --> ");
             system("color 04");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
@@ -152,15 +162,16 @@ void imprimirNomes(FILE *Nomes)
     size_t len;
     char *linha = malloc(len);
     int cont = 0;
+    system("cls");
     if (!Nomes)
     {
-        system("cls");
         system("color 04");
         printf("\nArquivo nao encontrado!\n");
         printf("Tente armazenar algum nome primeiro\n\n");
         system("pause");
         return 1;
     }
+    printf("<====== Lista dos nomes salvos ======>\n\n");
     while (getline(&linha, &len, Nomes) > 0)
     {
         cont++;
@@ -174,18 +185,38 @@ void imprimirNomes(FILE *Nomes)
 }
 
 void deletarArquivo(FILE *Nomes)
-{   system("cls");
-    if ((remove("Nome das Pessoas.txt")) != 0){
-        system("color 04");
-        printf("\nErro, Arquivo nao encontrado\n");
-        printf("Talvez voce nao tenha salvado nenhum nome\n\n");
-    }
-    else
+{
+    int opcao;
+    system("cls");
+    system("color 01");
+    printf("\nDeseja excluir todos os nomes?\n 1-sim\n 2-nao\n\n --> ");
+    scanf("%d", &opcao);
+
+    //verificar se a entrada foi correta
+    while (opcao != 1 && opcao != 2)
     {
-        system("color 02");
-        printf("\nArquivo Deletado Com Sucesso!\n\n");
+        system("cls");
+        printf("\nDeseja excluir todos os nomes?\n 1-sim\n 2-nao\n\n --> ");
+        system("color 04");
+        printf("Opcao INVALIDA. Digite uma opcao existente: ");
+        scanf("%d", &opcao);
     }
-    system("pause");
+    system("cls");
+    if (opcao == 1)
+    {
+        if ((remove("Nome das Pessoas.txt")) != 0)
+        {
+            system("color 04");
+            printf("\nErro, Arquivo nao encontrado\n");
+            printf("Talvez voce nao tenha salvado nenhum nome\n\n");
+        }
+        else
+        {
+            system("color 02");
+            printf("\nArquivo Deletado Com Sucesso!\n\n");
+        }
+        system("pause");
+    }
 }
 
 void ArmazenarPesquisar(FILE *Nomes)

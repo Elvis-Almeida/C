@@ -10,7 +10,7 @@ void menu_pre_game()
     printf(" Digite o numero da opcao escolhida\n\n");
     printf(" 1 - Tutorial\n");
     printf(" 2 - Iniciar Game\n");
-    printf(" 3 - Finalizar Game\n\n");
+    printf(" 3 - Voltar para o Menu Principal\n\n");
 }
 
 void tutorial_game()
@@ -47,20 +47,14 @@ void menu_game()
     printf("    3 - Tesoura\n\n");
 }
 
-typedef  struct Snomes 
+typedef struct Snomes
 {
-    char nome[20];
+    char nome[10];
 } Tnomes;
 
 void Jogo_predra_papel_tesoura()
 {
     int opcao, opcaoComputador, contadorVitorias = 0, contadorDerrota = 0, contadorEmpate = 0;
-    Tnomes Nomes[3];
-
-    strcat("Pedra", Nomes[1].nome);
-    strcat("Papel", Nomes[1].nome);
-    strcat("Tesoura", Nomes[1].nome);
-
     while (1)
     {
         //Menu
@@ -69,7 +63,7 @@ void Jogo_predra_papel_tesoura()
         opcaoComputador = (rand() % 3) + 1;
         printf("Digite a opcao escolhida: ");
         scanf("%d", &opcao);
-        
+        Tnomes Nomes[3];
 
         //Verificar se a entrada está correta
         while (opcao != 1 && opcao != 2 && opcao != 3)
@@ -79,23 +73,48 @@ void Jogo_predra_papel_tesoura()
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
             scanf("%d", &opcao);
         }
+        system("cls");
         system("color 01"); //Colorir para o padrão
 
         // Para escrever a opção do pc
-        
-        printf("\nO pc escolheu %s\n", Nomes[opcaoComputador]);
+        if (opcaoComputador == 1)
+        {
+            printf("\nO pc escolheu Pedra\n");
+        }
+        if (opcaoComputador == 2)
+        {
+            printf("\nO pc escolheu Papel\n");
+        }
+        if (opcaoComputador == 3)
+        {
+            printf("\nO pc escolheu Tesoura\n");
+        }
+        //Jogador
+        if (opcao == 1)
+        {
+            printf("E voce escolheu Pedra\n\n");
+        }
+        if (opcao == 2)
+        {
+            printf("E voce escolheu Papel\n\n");
+        }
+        if (opcao == 3)
+        {
+            printf("E voce escolheu Tesoura\n\n");
+        }
+
 
         //Para saber se empatou ganhou ou perdeu
         if ((opcao == 1 && opcaoComputador == 2) || (opcao == 3 && opcaoComputador == 1) || (opcao == 2 && opcaoComputador == 3)) // se perdeu
         {
             system("color 04"); //Colorir para Vermelho
-            printf("voce PERDEU\n");
+            printf("voce PERDEU!\n");
             contadorDerrota++;
         }
         else if (opcao == opcaoComputador) // se empatou
         {
             system("color 0f"); //Colorir para Branco
-            printf("voce EMPATOU\n");
+            printf("voce EMPATOU!\n");
             contadorEmpate++;
         }
         else // se ganhou
@@ -130,6 +149,12 @@ void Jogo_predra_papel_tesoura()
             printf("Derrotas: %d\n", contadorDerrota);
             printf("Empates : %d\n\n", contadorEmpate);
 
+            if (contadorVitorias > contadorDerrota+contadorEmpate)
+            {
+                system("color 02");
+                printf("Voce e muito sortudo, levo para 2021 kk :)\n\n");
+            }
+            
             system("pause");
             break;
         }
