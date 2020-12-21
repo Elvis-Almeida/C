@@ -71,6 +71,7 @@ void Jogo_predra_papel_tesoura()
             menu_game();
             system("color 04"); //Colorir para Vermelho
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
+            fflush(stdin);
             scanf("%d", &opcao);
         }
         system("cls");
@@ -135,6 +136,7 @@ void Jogo_predra_papel_tesoura()
             system("color 04");
             printf("\n\nDeseja continuar?\n 1 - sim\n 2 - nao\n\n");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
+            fflush(stdin);
             scanf("%d", &opcao);
         }
 
@@ -174,6 +176,7 @@ void Jogo()
             menu_pre_game();
             system("color 04");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
+            fflush(stdin);
             scanf("%d", &opcao);
         }
         if (opcao == 1)

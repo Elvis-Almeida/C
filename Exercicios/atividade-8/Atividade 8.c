@@ -34,6 +34,7 @@ int main()
             menu_principal();
             system("color 04");
             printf("Opcao INVALIDA. Digite uma opcao existente: ");
+            fflush(stdin);
             scanf("%d", &opcao);
         }
         system("color 07");
